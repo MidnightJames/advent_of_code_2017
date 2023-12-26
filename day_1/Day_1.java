@@ -33,16 +33,16 @@ public class Day_1
         long startTime = System.nanoTime();
 
         char[] input = new char[0];
-        int numberOfMatches = 0;
+        int numberOfMatchesPartOne = 0;
+        int numberOfMatchesPartTwo = 0;
         try
         {
             Scanner fileScanner = new Scanner(file);
             input = fileScanner.nextLine().toCharArray();
-            numberOfMatches = input[0] == input[input.length - 1] ? Integer.parseInt("" + input[0]) : 0;
+            numberOfMatchesPartOne = input[0] == input[input.length - 1] ? Integer.parseInt("" + input[0]) : 0;
             fileScanner.close();
         }
-        catch (FileNotFoundException exception)
-        {
+        catch (FileNotFoundException exception) {
             System.out.println("File not found.");
             System.exit(FILE_NOT_FOUND);
         }
@@ -51,12 +51,22 @@ public class Day_1
         {
             if (input[i] == input[i - 1])
             {
-                System.out.println("Adding " + input[i]);
-                numberOfMatches += Integer.parseInt("" + input[i]);
+                numberOfMatchesPartOne += Integer.parseInt("" + input[i]);
             }
         }
 
-        System.out.println("Part 1: " + numberOfMatches);
+        int halfArray = input.length / 2;
+        for (int i = 0; i < halfArray; ++i)
+        {
+            if (input[i] == input[i + halfArray])
+            {
+                numberOfMatchesPartTwo += Integer.parseInt("" + input[i]) * 2;
+            }
+        }
+
+
+        System.out.println("Part 1: " + numberOfMatchesPartOne);
+        System.out.println("Part 2: " + numberOfMatchesPartTwo);
 
         long endTime = System.nanoTime();
         long duration = (endTime - startTime) / 1000000;
